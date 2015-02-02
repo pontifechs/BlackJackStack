@@ -3,3 +3,9 @@ docs.json
 __dummy.html
 *.o
 *.obj
+
+blackjackstack
+dub.selections.json
+
+node_modules
+
