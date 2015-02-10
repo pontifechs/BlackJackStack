@@ -1,0 +1,30 @@
+{
+  "name": "BlackJackStack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pontifechs/BlackJackStack.git"
+  },
+  "author": "Matthew Dudley, Kurt Neish",
+  "license": "Apache",
+  "bugs": {
+    "url": "https://github.com/pontifechs/BlackJackStack/issues"
+  },
+  "homepage": "https://github.com/pontifechs/BlackJackStack",
+  "dependencies": {
+    "express": "^4.11.2",
+    "flummox": "^2.5.0",
+    "react": "^0.12.2",
+    "requirejs": "^2.1.16"
+  },
+  "devDependencies": {
+    "6to5-core": "^3.5.3",
+    "6to5-loader": "^3.0.0",
+    "webpack": "^1.5.3"
+  }
+}
