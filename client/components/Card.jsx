@@ -9,7 +9,7 @@ const Card = React.createClass({
         const style = {
             width: '100%',
             height: 'auto',
-            margin: 5
+            margin: 5,
         }
         
         let url = '';

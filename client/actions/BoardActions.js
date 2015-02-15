@@ -4,7 +4,7 @@ import alt from 'alt-instance';
 
 class BoardActions {
     constructor() {
-        this.generateActions('hoverColumn', 'placeCard');
+        this.generateActions('hoverColumn', 'placeCard', 'blackjack');
     }
 }
 

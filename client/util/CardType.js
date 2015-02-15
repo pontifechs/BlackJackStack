@@ -1,14 +1,13 @@
 
 
-const suits = new Map([
+const Suits = new Map([
     ['s', 'spades'],
     ['c', 'clubs'],
     ['h', 'hearts'],
     ['d', 'diamonds']
 ]);
 
-const values = new Map([
-    [1, 1], // A low
+const Values = new Map([
     [2, 2],
     [3, 3],
     [4, 4],
@@ -21,17 +20,16 @@ const values = new Map([
     [11, 10], // J
     [12, 10], // Q
     [13, 10], // K
-    [14, 11], // A high
+    [14, 11], // A
 ]);
-
 
 let urls = {};
 
-for (let suit of suits.keys()) {
+for (let suit of Suits.keys()) {
 
     urls[suit] = {};
 
-    for (let value of values.keys()) {
+    for (let value of Values.keys()) {
         let path = '';
 
         switch(value) {
@@ -44,8 +42,6 @@ for (let suit of suits.keys()) {
             case 13:
                 path = 'k';
                 break;
-            
-            case 1:
             case 14:
                 path = 'a';
                 break;
@@ -61,10 +57,10 @@ for (let suit of suits.keys()) {
 
 class CardType {
     constructor(suit, value) {
-        if (!suits.has(suit)) {
+        if (!Suits.has(suit)) {
             throw "Invalid suit"; 
         }
-        if (!values.has(value)) {
+        if (!Values.has(value)) {
             throw "Invalid value";
         }
         this.suit = suit;
@@ -76,6 +72,4 @@ class CardType {
     }
 }
 
-
-
-export default CardType;
+export default {CardType, Suits, Values};

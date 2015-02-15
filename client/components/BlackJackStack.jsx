@@ -8,6 +8,22 @@ import BoardActions from 'actions/BoardActions';
 
 
 const ScoreBar = React.createClass({
+    getInitialState() {
+        return Board.getState();
+    },
+
+    componentWillMount() {
+        Board.listen(this.onChange);
+    },
+
+    componentWillUnmount() {
+        Board.unlisten(this.onChange);
+    },
+
+    onChange() {
+        this.setState(this.getInitialState());
+    },
+    
     render() {
         const style= {
             backgroundColor: '#F77F7F',
@@ -17,8 +33,8 @@ const ScoreBar = React.createClass({
         return (
             <Flex.Column width={1} style={style}>
                 <span>Score</span>
-                <span>NextCard</span>
-                <span>Remaining</span>
+                <Card card={this.state.nextCard}/>
+                <span>{this.state.deck.remaining.length}</span>
             </Flex.Column>
         );
     }
@@ -43,7 +59,12 @@ const BlackJackColumn = React.createClass({
     },
  
     handleClick() {
-        BoardActions.placeCard({x: this.props.x});
+        try {
+            BoardActions.placeCard(this.props.x);
+        }
+        catch(e) {
+            // TODO:: Flash screen or something?
+        }
     },
    
     render() {
@@ -55,7 +76,7 @@ const BlackJackColumn = React.createClass({
         
         let cells = [];
         
-        for(let i = 0; i < 5; ++i)
+        for(let i = 4; i >= 0; --i)
         {
             let card = this.state.board[this.props.x][i];
             cells.push(
