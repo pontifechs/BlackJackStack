@@ -1,4 +1,6 @@
 
+
+var Alt = require('alt')
 import React from 'react';
 import BlackJackStack from 'components/BlackJackStack';
 import Flex from 'components/util/Flex';
@@ -25,4 +27,3 @@ const App = React.createClass({
 
 document.body.style.margin = 0;
 React.render(<App/>, document.body);
-

@@ -8,23 +8,7 @@ import BoardActions from 'actions/BoardActions';
 
 
 const ScoreBar = React.createClass({
-    getInitialState() {
-        return Board.getState();
-    },
-
-    componentWillMount() {
-        Board.listen(this.onChange);
-    },
-
-    componentWillUnmount() {
-        Board.unlisten(this.onChange);
-    },
-
-    onChange() {
-        this.setState(this.getInitialState());
-    },
-    
-    render() {
+   render() {
         const style= {
             backgroundColor: '#F77F7F',
             alignItems: 'center'
@@ -33,8 +17,8 @@ const ScoreBar = React.createClass({
         return (
             <Flex.Column width={1} style={style}>
                 <span>Score</span>
-                <Card card={this.state.nextCard}/>
-                <span>{this.state.deck.remaining.length}</span>
+                <Card card={this.props.nextCard}/>
+                <span>{this.props.cardsRemaining}</span>
             </Flex.Column>
         );
     }
@@ -42,22 +26,7 @@ const ScoreBar = React.createClass({
 
 
 const BlackJackColumn = React.createClass({
-    getInitialState() {
-        return Board.getState();
-    },
 
-    componentWillMount() {
-        Board.listen(this.onChange);
-    },
-
-    componentWillUnmount() {
-        Board.unlisten(this.onChange);
-    },
-
-    onChange() {
-        this.setState(this.getInitialState());
-    },
- 
     handleClick() {
         try {
             BoardActions.placeCard(this.props.x);
@@ -68,27 +37,23 @@ const BlackJackColumn = React.createClass({
     },
    
     render() {
-
         const rowStyle = {
             margin: 5,
             alignItems: 'center'
         };
         
         let cells = [];
-        
-        for(let i = 4; i >= 0; --i)
-        {
-            let card = this.state.board[this.props.x][i];
+        this.props.cards.forEach(card => {
             cells.push(
                 <Flex.Row style={rowStyle}>
                     <Card card={card}/> 
                 </Flex.Row>
-            );
-        }
+            )
+        });
 
         return (
             <Flex.Column onClick={this.handleClick}>
-                {cells}
+                {cells.reverse()}
             </Flex.Column>
         );
     },
@@ -97,22 +62,37 @@ const BlackJackColumn = React.createClass({
 
 
 const BlackJackStack = React.createClass({
-   render() {
+    getInitialState() {
+        return Board.getState();
+    },
 
+    componentWillMount() {
+        Board.listen(this.onChange);
+    },
+
+    componentWillUnmount() {
+        Board.unlisten(this.onChange);
+    },
+
+    onChange() {
+        this.setState(this.getInitialState());
+    },
+   
+    render() {
         let cols = [];
         for (let i = 0; i < 5; ++i)
         {
             cols.push(
-                <BlackJackColumn x={i}/>
+                <BlackJackColumn cards={this.state.board[i]} x={i}/>
             );
         }
-
+               
         return (
             <Flex.Row>
                 <Flex.Row width={5}>
                     {cols}
                 </Flex.Row>
-                <ScoreBar/>
+                <ScoreBar nextCard={this.state.nextCard} cardsRemaining={this.state.deck.remaining.length}/>
             </Flex.Row>
         );
     }
